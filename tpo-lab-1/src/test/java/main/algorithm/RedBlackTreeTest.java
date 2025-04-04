@@ -561,7 +561,7 @@ public class RedBlackTreeTest {
     @Test
     public void testRightBlackNodeWithBrotherDifferentColor() {
         RedBlackTree tree = new RedBlackTree();
-        int[] keys = {100, 75, 125, 80, 40, 214,46,346,3,57};
+        int[] keys = {100, 75, 125, 80, 40, 214,46,346,3,57,457,9,26,4,94,563,84,58,4589,5468,4,58,769,6479,1,237,1,4,297,3,9432,68,3,8,284,73,2,45,2,84,9,48,95,37,23,42,569,437,97,2,7,5,7,89,4,79,39537,3,9670,35,3};
         int black = 0;
         for (int key : keys) {
             tree.insert(key);
@@ -569,6 +569,14 @@ public class RedBlackTreeTest {
         }
         for (int key : keys) {
             tree.delete(key);
+            assertTrue(tree.verifyProperties());
+        }
+        for (int key : keys) {
+            tree.insert(key);
+            assertTrue(tree.verifyProperties());
+        }
+        for (int i = keys.length - 1; i >= 0; i--) {
+            tree.delete(keys[i]);
             assertTrue(tree.verifyProperties());
         }
         assertTrue(tree.verifyProperties());

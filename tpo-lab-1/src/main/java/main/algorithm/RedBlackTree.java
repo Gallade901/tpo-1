@@ -99,9 +99,9 @@ public class RedBlackTree {
     private void leftRotate(Node x) {
         Node y = x.right;
         x.right = y.left;
-//        if (y.left != TNULL) {
-//            y.left.parent = x;
-//        }
+        if (y.left != TNULL) {
+            y.left.parent = x;
+        }
         y.parent = x.parent;
         if (x.parent == null) {
             root = y;
@@ -117,9 +117,9 @@ public class RedBlackTree {
     private void rightRotate(Node y) {
         Node x = y.left; // 17
         y.left = x.right;
-//        if (x.right != TNULL) {
-//            x.right.parent = y;
-//        }
+        if (x.right != TNULL) {
+            x.right.parent = y;
+        }
         x.parent = y.parent; //
         if (y.parent == null) {
             root = x;
@@ -254,12 +254,13 @@ public class RedBlackTree {
                     s = x.parent.right;
                 }
 
-                if (s.left.color == true && s.right.color == true) {
+                if ((s.left == TNULL || s.left.color == true) &&
+                        (s.right == TNULL || s.right.color == true)) {
                     s.color = false;
                     x = x.parent;
                 } else {
-                    if (s.right.color == true) {
-                        s.left.color = true;
+                    if (s.right == TNULL || s.right.color == true) {
+                        if (s.left != TNULL) s.left.color = true;
                         s.color = false;
                         rightRotate(s);
                         s = x.parent.right;
@@ -267,7 +268,7 @@ public class RedBlackTree {
 
                     s.color = x.parent.color;
                     x.parent.color = true;
-                    s.right.color = true;
+                    if (s.right != TNULL) s.right.color = true;
                     leftRotate(x.parent);
                     x = root;
                 }
@@ -280,12 +281,13 @@ public class RedBlackTree {
                     s = x.parent.left;
                 }
 
-                if (s.right.color == true && s.left.color == true) {
+                if ((s.right == TNULL || s.right.color == true) &&
+                        (s.left == TNULL || s.left.color == true)) {
                     s.color = false;
                     x = x.parent;
                 } else {
-                    if (s.left.color == true) {
-                        s.right.color = true;
+                    if (s.left == TNULL || s.left.color == true) {
+                        if (s.right != TNULL) s.right.color = true;
                         s.color = false;
                         leftRotate(s);
                         s = x.parent.left;
@@ -293,7 +295,7 @@ public class RedBlackTree {
 
                     s.color = x.parent.color;
                     x.parent.color = true;
-                    s.left.color = true;
+                    if (s.left != TNULL) s.left.color = true;
                     rightRotate(x.parent);
                     x = root;
                 }
@@ -301,6 +303,7 @@ public class RedBlackTree {
         }
         x.color = true;
     }
+
 
 
 }
